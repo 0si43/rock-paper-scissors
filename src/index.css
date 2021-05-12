@@ -1,5 +1,5 @@
 body {
-  font: 72px "Century Gothic", Futura, sans-serif;
+  font: 5rem "Century Gothic", Futura, sans-serif;
   margin: 20px;
   text-align: center;
 }
@@ -51,5 +51,5 @@ ol, ul {
 }
 
 .opponent-hand {
-  font-size: 240px;
+  font-size: 15rem;
 }

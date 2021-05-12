@@ -154,7 +154,7 @@ class Round extends React.Component {
   componentDidMount() {
     this.timerID = setInterval(
       () => this.change(),
-      100
+      500
     );
   }
 
