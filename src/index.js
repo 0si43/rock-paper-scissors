@@ -150,7 +150,7 @@ class Round extends React.Component {
         ✊✌️✋
         </div>
         <div className="message">
-          何を出す？
+          何を出しますか？
         </div>
         <div className="player-hand">
         ✊✌️✋
