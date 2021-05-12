@@ -142,7 +142,7 @@ function calculateWinner(squares) {
   return null;
 }
 
-class Round extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -182,12 +182,12 @@ class Round extends React.Component {
   render() {
     const opponentHand = this.state.opponentHand;
     return (
-      <div className="round">
+      <div className="battle">
         <div className="opponent-hand">
         {opponentHand}
         </div>
         <div className="message">
-          何を出しますか？
+          勝負！
         </div>
         <div className="player-hand">
         ✊✌️✋
@@ -200,7 +200,7 @@ class Round extends React.Component {
 // ========================================
 
 ReactDOM.render(
-  <Round />,
+  <App />,
   document.getElementById('root')
 );
 
