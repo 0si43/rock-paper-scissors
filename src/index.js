@@ -143,11 +143,20 @@ function calculateWinner(squares) {
 }
 
 class Round extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      playerHand: "",
+      opponentHand: "✊",
+    };
+  }
+
   render() {
+    const opponentHand = this.state.opponentHand;
     return (
       <div className="round">
         <div className="opponent-hand">
-        ✊✌️✋
+        {opponentHand}
         </div>
         <div className="message">
           何を出しますか？
