@@ -142,10 +142,28 @@ function calculateWinner(squares) {
   return null;
 }
 
+class Round extends React.Component {
+  render() {
+    return (
+      <div className="round">
+        <div className="opponent-hand">
+        ✊✌️✋
+        </div>
+        <div className="message">
+          何を出す？
+        </div>
+        <div className="player-hand">
+        ✊✌️✋
+        </div>
+      </div>
+    );
+  }
+}
+
 // ========================================
 
 ReactDOM.render(
-  <Game />,
+  <Round />,
   document.getElementById('root')
 );
 
