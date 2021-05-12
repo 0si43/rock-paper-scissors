@@ -151,6 +151,34 @@ class Round extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.timerID = setInterval(
+      () => this.change(),
+      100
+    );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  change() {
+    console.log(this.state.opponentHand);
+    if (this.state.opponentHand === '✊') {
+      this.setState({
+        opponentHand: "✌️"
+      });
+    } else if (this.state.opponentHand === "✌️") {
+      this.setState({
+        opponentHand: "✋"
+      });
+    } else if (this.state.opponentHand === "✋") {
+      this.setState({
+        opponentHand: "✊"
+      });
+    }
+  }
+
   render() {
     const opponentHand = this.state.opponentHand;
     return (
