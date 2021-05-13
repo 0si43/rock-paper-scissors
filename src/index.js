@@ -153,7 +153,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.timerID = setInterval(
-      () => this.change(),
+      () => this.changeOpponentHand(),
       500
     );
   }
@@ -162,7 +162,9 @@ class App extends React.Component {
     clearInterval(this.timerID);
   }
 
-  change() {
+  changeOpponentHand() {
+    if (this.state.playerHand) { return }
+
     if (this.state.opponentHand === '✊') {
       this.setState({
         opponentHand: "✌️"
@@ -178,31 +180,51 @@ class App extends React.Component {
     }
   }
 
+  setPlayerHand(hand) {
+    this.setState({ playerHand: hand });
+  }
+
   render() {
+    const playerHand = this.state.playerHand;
     const opponentHand = this.state.opponentHand;
     return (
       <div className="app">
         <OpponentHand value={opponentHand}/>
         <div className="message">
-          勝負！
+          {calculateWinner(playerHand, opponentHand)}
         </div>
         <div className="player-hand">
           <PlayerHand
             value="✊"
-            onClick={() => console.log("temp")}
+            onClick={() => this.setPlayerHand("✊")}
           />
           <PlayerHand
             value="✌️"
-            onClick={() => console.log("temp")}
+            onClick={() => this.setPlayerHand("✌️")}
           />
           <PlayerHand
             value="✋"
-            onClick={() => console.log("temp")}
+            onClick={() => this.setPlayerHand("✋")}
           />
         </div>
       </div>
     );
   }
+}
+
+function calculateWinner(playerHand, opponentHand) {
+  if(playerHand === opponentHand) {
+    return "引き分け！"
+  } else if((playerHand === "✊" && opponentHand === "✌️") ||
+            (playerHand === "✌️" && opponentHand === "✋") ||
+            (playerHand === "✋" && opponentHand === "✊")) {
+    return "You Win!"
+  } else if((playerHand === "✊" && opponentHand === "✋") ||
+            (playerHand === "✌️" && opponentHand === "✊") ||
+            (playerHand === "✋" && opponentHand === "✌️")) {
+    return "You Lose..."
+  }
+  return "勝負！";
 }
 
 // ========================================
@@ -211,4 +233,3 @@ ReactDOM.render(
   <App />,
   document.getElementById('root')
 );
-
