@@ -123,10 +123,18 @@ class Game extends React.Component {
 }
 */
 
+function OpponentHand(props) {
+  return (
+    <div>
+      {props.value}
+    </div>
+  );
+}
+
 function PlayerHand(props) {
   return (
     <button
-      className="playerhand"
+      className="player-hand"
       onClick={props.onClick}
     >
       {props.value}
@@ -173,10 +181,8 @@ class App extends React.Component {
   render() {
     const opponentHand = this.state.opponentHand;
     return (
-      <div className="battle">
-        <div className="opponent-hand">
-          {opponentHand}
-        </div>
+      <div className="app">
+        <OpponentHand value={opponentHand}/>
         <div className="message">
           勝負！
         </div>
