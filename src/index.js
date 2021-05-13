@@ -125,7 +125,7 @@ class Game extends React.Component {
 
 function OpponentHand(props) {
   return (
-    <div>
+    <div className="opponent-hand">
       {props.value}
     </div>
   );
@@ -142,6 +142,31 @@ function PlayerHand(props) {
   );
 }
 
+class Page extends React.Component {
+  renderPlayerHand(hand) {
+    return <PlayerHand
+            value={hand}
+            onClick={() => this.props.onClick(hand)}
+          />
+  }
+
+  render() {
+    return (
+      <div className="app">
+        <OpponentHand value={this.props.opponentHand}/>
+        <div className="message">
+          {calculateWinner(this.props.playerHand, this.props.opponentHand)}
+        </div>
+        <div className="player-hand">
+          {this.renderPlayerHand("✊")}
+          {this.renderPlayerHand("✌️")}
+          {this.renderPlayerHand("✋")}
+        </div>
+      </div>
+    );
+  }
+}
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -149,9 +174,15 @@ class App extends React.Component {
       playerHand: "",
       opponentHand: "✊",
     };
+    this.setPlayerHand = this.setPlayerHand.bind(this);
+    this.clearPlayerHand = this.clearPlayerHand.bind(this);
   }
 
   componentDidMount() {
+    this.setTimer()
+  }
+
+  setTimer() {
     this.timerID = setInterval(
       () => this.changeOpponentHand(),
       500
@@ -163,7 +194,9 @@ class App extends React.Component {
   }
 
   changeOpponentHand() {
-    if (this.state.playerHand) { return }
+    if (this.state.playerHand) { 
+      clearInterval(this.timerID); 
+    }
 
     if (this.state.opponentHand === '✊') {
       this.setState({
@@ -181,34 +214,38 @@ class App extends React.Component {
   }
 
   setPlayerHand(hand) {
+    console.log(hand);
     this.setState({ playerHand: hand });
+  }
+
+  clearPlayerHand() {
+    this.setState({ playerHand: "" });
   }
 
   render() {
     const playerHand = this.state.playerHand;
     const opponentHand = this.state.opponentHand;
-    return (
-      <div className="app">
-        <OpponentHand value={opponentHand}/>
-        <div className="message">
-          {calculateWinner(playerHand, opponentHand)}
-        </div>
-        <div className="player-hand">
-          <PlayerHand
-            value="✊"
-            onClick={() => this.setPlayerHand("✊")}
-          />
-          <PlayerHand
-            value="✌️"
-            onClick={() => this.setPlayerHand("✌️")}
-          />
-          <PlayerHand
-            value="✋"
-            onClick={() => this.setPlayerHand("✋")}
+    if(playerHand) {
+      return (
+        <div className="app" onClick={this.clearPlayerHand}>
+          <Page 
+            playerHand={playerHand}  
+            opponentHand={opponentHand}
+            onClick={(hand) => this.setPlayerHand(hand)}
           />
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div className="app">
+          <Page 
+            playerHand={playerHand}  
+            opponentHand={opponentHand}
+            onClick={(hand) => this.setPlayerHand(hand)}
+          />
+        </div>
+      );
+    }
   }
 }
 
