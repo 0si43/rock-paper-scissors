@@ -75,7 +75,7 @@ class App extends React.Component {
   changeOpponentHand() {
     if (this.state.playerHand) { return; }
 
-    if (this.state.opponentHand === '✊') {
+    if (this.state.opponentHand === "✊") {
       this.setState({
         opponentHand: "✌️"
       });
