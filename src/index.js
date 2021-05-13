@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-
+/*
 function Square(props) {
     return (
       <button
@@ -121,25 +121,17 @@ class Game extends React.Component {
     );
   }
 }
+*/
 
-function calculateWinner(squares) {
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
-    }
-  }
-  return null;
+function PlayerHand(props) {
+  return (
+    <button
+      className="playerhand"
+      onClick={props.onClick}
+    >
+      {props.value}
+    </button>
+  );
 }
 
 class App extends React.Component {
@@ -163,7 +155,6 @@ class App extends React.Component {
   }
 
   change() {
-    console.log(this.state.opponentHand);
     if (this.state.opponentHand === '✊') {
       this.setState({
         opponentHand: "✌️"
@@ -184,13 +175,24 @@ class App extends React.Component {
     return (
       <div className="battle">
         <div className="opponent-hand">
-        {opponentHand}
+          {opponentHand}
         </div>
         <div className="message">
           勝負！
         </div>
         <div className="player-hand">
-        ✊✌️✋
+          <PlayerHand
+            value="✊"
+            onClick={() => console.log("temp")}
+          />
+          <PlayerHand
+            value="✌️"
+            onClick={() => console.log("temp")}
+          />
+          <PlayerHand
+            value="✋"
+            onClick={() => console.log("temp")}
+          />
         </div>
       </div>
     );
