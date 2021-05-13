@@ -54,7 +54,7 @@ class App extends React.Component {
       opponentHand: "✊",
     };
     this.setPlayerHand = this.setPlayerHand.bind(this);
-    this.clearPlayerHand = this.clearPlayerHand.bind(this);
+    this.startNewGame = this.startNewGame.bind(this);
   }
 
   componentDidMount() {
@@ -73,9 +73,7 @@ class App extends React.Component {
   }
 
   changeOpponentHand() {
-    if (this.state.playerHand) { 
-      clearInterval(this.timerID); 
-    }
+    if (this.state.playerHand) { return; }
 
     if (this.state.opponentHand === '✊') {
       this.setState({
@@ -93,10 +91,11 @@ class App extends React.Component {
   }
 
   setPlayerHand(hand) {
+    clearInterval(this.timerID);
     this.setState({ playerHand: hand });
   }
 
-  clearPlayerHand() {
+  startNewGame() {
     this.setTimer()
     this.setState({ playerHand: "" });
   }
@@ -104,24 +103,21 @@ class App extends React.Component {
   render() {
     const playerHand = this.state.playerHand;
     const opponentHand = this.state.opponentHand;
+    const page = <Page 
+                  playerHand={playerHand}  
+                  opponentHand={opponentHand}
+                  onClick={(hand) => this.setPlayerHand(hand)}
+                />
     if(playerHand) {
       return (
-        <div className="app" onClick={this.clearPlayerHand}>
-          <Page 
-            playerHand={playerHand}  
-            opponentHand={opponentHand}
-            onClick={(hand) => this.setPlayerHand(hand)}
-          />
+        <div className="app" onClick={this.startNewGame}>
+          {page}
         </div>
       );
     } else {
       return (
         <div className="app">
-          <Page 
-            playerHand={playerHand}  
-            opponentHand={opponentHand}
-            onClick={(hand) => this.setPlayerHand(hand)}
-          />
+          {page}
         </div>
       );
     }
